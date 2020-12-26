@@ -30,13 +30,13 @@ namespace TiendaServicios.Api.Autor.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<AutorLibro>> GetAutores()
+        public async Task<IEnumerable<AutorDto>> GetAutores()
         {
             return await _mediator.Send(new Consulta.ListaAutor());
         }
 
         [HttpGet("{id}")]
-        public async Task<AutorLibro> GetAutorLibro(int id)
+        public async Task<AutorDto> GetAutorLibro(int id)
         {
             return await _mediator.Send(new ConsultaFiltro.AutorUnico { AutorLibroId = id  });
         }

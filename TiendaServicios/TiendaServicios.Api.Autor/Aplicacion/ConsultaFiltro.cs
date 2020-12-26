@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,21 +13,23 @@ namespace TiendaServicios.Api.Autor.Aplicacion
 {
     public class ConsultaFiltro
     {
-        public class AutorUnico : IRequest<AutorLibro>
+        public class AutorUnico : IRequest<AutorDto>
         {
             public int AutorLibroId { get; set; }
         }
 
-        public class Manejador : IRequestHandler<AutorUnico, AutorLibro>
+        public class Manejador : IRequestHandler<AutorUnico, AutorDto>
         {
             public readonly ContextoAutor _contexto;
+            public readonly IMapper _mapper;
 
-            public Manejador(ContextoAutor contexto)
+            public Manejador(ContextoAutor contexto, IMapper mapper)
             {
                 _contexto = contexto;
+                _mapper = mapper;
             }
 
-            public async Task<AutorLibro> Handle(AutorUnico request, CancellationToken cancellationToken)
+            public async Task<AutorDto> Handle(AutorUnico request, CancellationToken cancellationToken)
             {
                 var autor = await _contexto.AutorLibro.Where(x => x.AutorLibroId == request.AutorLibroId).FirstOrDefaultAsync();
 
@@ -35,7 +38,9 @@ namespace TiendaServicios.Api.Autor.Aplicacion
                     throw new Exception("No se encontro el autor");
                 }
 
-                return autor;
+                var autorDto = _mapper.Map<AutorLibro, AutorDto>(autor);
+
+                return autorDto;
             }
         }
     }
