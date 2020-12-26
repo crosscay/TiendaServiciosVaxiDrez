@@ -35,5 +35,10 @@ namespace TiendaServicios.Api.Autor.Controllers
             return await _mediator.Send(new Consulta.ListaAutor());
         }
 
+        [HttpGet("{id}")]
+        public async Task<AutorLibro> GetAutorLibro(int id)
+        {
+            return await _mediator.Send(new ConsultaFiltro.AutorUnico { AutorLibroId = id  });
+        }
     }
 }
