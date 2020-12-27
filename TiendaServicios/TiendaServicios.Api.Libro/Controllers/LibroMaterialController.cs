@@ -30,5 +30,11 @@ namespace TiendaServicios.Api.Libro.Controllers
         {
             return await _mediator.Send(new Consulta.Ejecuta());
         }
+
+        [HttpGet("{id}")]
+        public async Task<LibroMaterialDto> GetLibroUnico(Guid id)
+        {
+            return await _mediator.Send(new ConsultaFiltro.LibroUnico { LibroId = id});
+        }
     }
 }
