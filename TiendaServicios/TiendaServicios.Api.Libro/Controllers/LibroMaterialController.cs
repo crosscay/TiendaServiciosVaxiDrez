@@ -25,5 +25,10 @@ namespace TiendaServicios.Api.Libro.Controllers
 
             return Ok();
         }
+        [HttpGet]
+        public async Task<IEnumerable<LibroMaterialDto>> GetLibros()
+        {
+            return await _mediator.Send(new Consulta.Ejecuta());
+        }
     }
 }
