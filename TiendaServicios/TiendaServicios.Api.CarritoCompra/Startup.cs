@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using TiendaServicios.Api.CarritoCompra.Aplicacion;
 using TiendaServicios.Api.CarritoCompra.Persistencia;
 
 namespace TiendaServicios.Api.CarritoCompra
@@ -30,6 +32,8 @@ namespace TiendaServicios.Api.CarritoCompra
             services.AddDbContext<CarritoContexto>(options => {
                 options.UseMySql(Configuration.GetConnectionString("ConexionDatabase"));
             });
+
+            services.AddMediatR(typeof(Nuevo.Manejador).Assembly);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
