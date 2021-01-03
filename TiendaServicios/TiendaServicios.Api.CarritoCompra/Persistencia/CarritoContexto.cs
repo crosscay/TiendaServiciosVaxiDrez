@@ -14,6 +14,11 @@ namespace TiendaServicios.Api.CarritoCompra.Persistencia
         public DbSet<CarritoSesion> CarritoSesion { get; set; }
 
         public DbSet<CarritoSesionDetalle> CarritoSesionDetalle { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
         
     }
 }
