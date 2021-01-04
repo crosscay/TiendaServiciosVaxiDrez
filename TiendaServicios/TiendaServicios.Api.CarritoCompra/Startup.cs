@@ -11,7 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using TiendaServicios.Api.CarritoCompra.Aplicacion;
+using TiendaServicios.Api.CarritoCompra.Modelo.RemoteInterface;
 using TiendaServicios.Api.CarritoCompra.Persistencia;
+using TiendaServicios.Api.CarritoCompra.RemoteService;
 
 namespace TiendaServicios.Api.CarritoCompra
 {
@@ -27,6 +29,8 @@ namespace TiendaServicios.Api.CarritoCompra
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<ILibroService, LibroService>();
+
             services.AddMvc();
 
             services.AddDbContext<CarritoContexto>(options => {
